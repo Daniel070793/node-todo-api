@@ -9,5 +9,19 @@ MongoClient.connect(server, (error, db) => {
   }
   console.log("Connected to mongoDB server");
 
-  db.close();
+  db
+    .collection("Todos")
+    .find({})
+    .toArray()
+    .then(
+      docs => {
+        console.log("Todos");
+        console.log(JSON.stringify(docs, undefined, 2));
+      },
+      error => {
+        console.log("Unable to fetch todos", error);
+      }
+    );
+
+  //db.close();
 });
